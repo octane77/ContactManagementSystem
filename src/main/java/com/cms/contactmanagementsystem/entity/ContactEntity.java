@@ -8,7 +8,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "Contacts")
 public class ContactEntity {

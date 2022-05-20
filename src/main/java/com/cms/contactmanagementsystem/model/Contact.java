@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
