@@ -7,6 +7,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ContactServiceImplementation implements ContactService {
@@ -26,8 +28,46 @@ public class ContactServiceImplementation implements ContactService {
 
     @Override
     public List<Contact> fetchAllContacts() {
-        List<ContactEntity> contactEntity = contactRepository.findAll();
-        return null;
+        List<ContactEntity> contactEntities = contactRepository.findAll();
+
+        List<Contact> contacts = contactEntities
+                .stream()
+                .map(contactEntity -> new Contact(
+                        contactEntity.getId(),
+                        contactEntity.getFirstName(),
+                        contactEntity.getLastName(),
+                        contactEntity.getEmailAddress(),
+                        contactEntity.getMobile(),
+                        contactEntity.getOffice()
+                )).collect(Collectors.toList());
+        return contacts;
+    }
+
+    @Override
+    public Contact fetchContactById(UUID id) {
+        ContactEntity contactEntity = contactRepository.findById(id).get();
+        Contact contact = new Contact();
+        BeanUtils.copyProperties(contactEntity, contact);
+        return contact;
+    }
+
+    @Override
+    public boolean deleteContact(UUID id) {
+        ContactEntity contact = contactRepository.findById(id).get();
+        contactRepository.delete(contact);
+        return false;
+    }
+
+    @Override
+    public Contact updateContact(UUID id, Contact contact) {
+        ContactEntity contactEntity = contactRepository.findById(id).get();
+        contactEntity.setFirstName(contact.getFirstName());
+        contactEntity.setLastName(contact.getLastName());
+        contactEntity.setEmailAddress(contact.getEmailAddress());
+        contactEntity.setMobile(contact.getMobile());
+        contactEntity.setOffice(contact.getOffice());
+        contactRepository.save(contactEntity);
+        return contact;
     }
 
 
