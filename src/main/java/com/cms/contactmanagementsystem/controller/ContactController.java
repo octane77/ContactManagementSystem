@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("cms/api/v1")
@@ -31,13 +30,13 @@ public class ContactController {
     }
 
     @GetMapping("/fetchUserById{id}")
-    public ResponseEntity<Contact> fetchContactById(@PathVariable("id") UUID id) {
+    public ResponseEntity<Contact> fetchContactById(@PathVariable("id") Long id) {
         Contact contact =  contactService.fetchContactById(id);
         return ResponseEntity.ok(contact);
     }
 
     @DeleteMapping("/deleteContactBy")
-    public ResponseEntity<Map<String, Boolean>> deleteContact(@PathVariable("id") UUID id) {
+    public ResponseEntity<Map<String, Boolean>> deleteContact(@PathVariable("id") Long id) {
         boolean deleted = false;
         deleted = contactService.deleteContact(id);
         Map<String,Boolean > response = new HashMap<>();
@@ -46,7 +45,7 @@ public class ContactController {
     }
 
     @PutMapping("/updateContact{id}")
-    public ResponseEntity<Contact> updateContact(@PathVariable("id") UUID id, @RequestBody Contact contact){
+    public ResponseEntity<Contact> updateContact(@PathVariable("id") Long id, @RequestBody Contact contact){
         contact = contactService.updateContact(id, contact);
         return ResponseEntity.ok(contact);
     }

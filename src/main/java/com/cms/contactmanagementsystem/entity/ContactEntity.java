@@ -3,17 +3,14 @@ package com.cms.contactmanagementsystem.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.UUID;
 
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data
 @Entity
 @Table(name = "Contacts")
 public class ContactEntity {
-    @Id
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String emailAddress;

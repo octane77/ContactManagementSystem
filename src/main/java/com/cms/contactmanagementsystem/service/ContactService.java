@@ -10,9 +10,9 @@ public interface ContactService {
     Contact saveContact(Contact contact);
     List<Contact> fetchAllContacts();
 
-    Contact fetchContactById(UUID id);
+    Contact fetchContactById(Long id);
 
-    boolean deleteContact(UUID id);
+    boolean deleteContact(Long id);
 
-    Contact updateContact(UUID id, Contact contact);
+    Contact updateContact(Long id, Contact contact);
 }

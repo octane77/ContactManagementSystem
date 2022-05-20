@@ -7,7 +7,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +43,7 @@ public class ContactServiceImplementation implements ContactService {
     }
 
     @Override
-    public Contact fetchContactById(UUID id) {
+    public Contact fetchContactById(Long id) {
         ContactEntity contactEntity = contactRepository.findById(id).get();
         Contact contact = new Contact();
         BeanUtils.copyProperties(contactEntity, contact);
@@ -52,14 +51,14 @@ public class ContactServiceImplementation implements ContactService {
     }
 
     @Override
-    public boolean deleteContact(UUID id) {
+    public boolean deleteContact(Long id) {
         ContactEntity contact = contactRepository.findById(id).get();
         contactRepository.delete(contact);
         return false;
     }
 
     @Override
-    public Contact updateContact(UUID id, Contact contact) {
+    public Contact updateContact(Long id, Contact contact) {
         ContactEntity contactEntity = contactRepository.findById(id).get();
         contactEntity.setFirstName(contact.getFirstName());
         contactEntity.setLastName(contact.getLastName());
