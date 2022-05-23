@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("ALL")
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @RequestMapping("cms/api/v1")
 public class ContactController {
@@ -29,24 +31,27 @@ public class ContactController {
         return contactService.fetchAllContacts();
     }
 
-    @GetMapping("/fetchUserById{id}")
+    @GetMapping("/fetchUserById/{id}")
     public ResponseEntity<Contact> fetchContactById(@PathVariable("id") Long id) {
         Contact contact =  contactService.fetchContactById(id);
         return ResponseEntity.ok(contact);
     }
 
-    @DeleteMapping("/deleteContactBy")
+    @DeleteMapping("/deleteContactBy/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteContact(@PathVariable("id") Long id) {
         boolean deleted = false;
         deleted = contactService.deleteContact(id);
         Map<String,Boolean > response = new HashMap<>();
-        response.put("Contact deleted successfully", deleted);
+        response.put("Contact deleted successfully", deleted = true);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/updateContact{id}")
+    @PutMapping("/updateContact/{id}")
     public ResponseEntity<Contact> updateContact(@PathVariable("id") Long id, @RequestBody Contact contact){
         contact = contactService.updateContact(id, contact);
         return ResponseEntity.ok(contact);
     }
+
+//    @GetMapping("/fetchContactsAsCSV")
+//    public ResponseEntity<>
 }
